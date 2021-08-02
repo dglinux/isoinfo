@@ -21,4 +21,4 @@ for file in "$TUNASYNC_WORKING_DIR/.pool/"*.iso; do
     fileobjs=("${fileobjs[@]}" "$fileobj")
 done
 
-jq -nc '[{"name":"NixOS",files:$ARGS.positional}]' --jsonargs "${fileobjs[@]}"
+jq -nc '[{"name":"Ubuntu",files:$ARGS.positional}]' --jsonargs "${fileobjs[@]}"
