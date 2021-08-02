@@ -23,7 +23,7 @@ Checksums are obtained from files like sha256sums.txt, not by executing checksum
 ```json
 {
     "ver": string,
-    "base": string,  // Base file name that displayed on the site
+    "base": string,  // Base file name that is displayed on the site
     "url": string,
     "sha256"?: string,
     "sha1"?: string,

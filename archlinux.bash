@@ -27,5 +27,4 @@ listfiles() {
 
 listfiles
 #for i in "${fileobjs[@]}"; do echo $i; done
-IFS=','
-jq -nc '[{"name":"Arch Linux",files:$files}]' --argjson files "[${fileobjs[*]}]"
+jq -nc '[{"name":"Arch Linux",files:$ARGS.positional}]' --jsonargs "${fileobjs[@]}"
