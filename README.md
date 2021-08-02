@@ -1,10 +1,7 @@
 # Direct download info JSON
 
 ```json
-{
-    "distro": DistroObject[],
-    "software": SoftwareObject[]
-}
+DistroObject[]
 ```
 
 ## DistroObject
@@ -30,11 +27,5 @@ Checksums are obtained from files like sha256sums.txt, not by executing checksum
     "md5"?: string,
     "sig"?: string,  // Signature file, URL
 }
-```
-
-## SoftwareObject
-
-```json
-{}
 ```
 
