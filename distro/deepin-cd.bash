@@ -8,10 +8,15 @@ for version in "$TUNASYNC_WORKING_DIR/"*; do
     if [[ -d "$version" ]]; then
         for file in "$version/"*.iso; do
             url="${file#"$fsprefix"}"
-            fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url}'\
+            base="$(basename "$file")"
+            md5="`grep '\s'"$base"'$' "$version/MD5SUMS" | cut -d' ' -f 1`"
+            sha256="`grep '\s'"$base"'$' "$version/SHA256SUMS" | cut -d' ' -f 1`"
+            fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"md5":$md5,"sha256":$sha256}'\
                 --arg ver "$(basename "$version")"\
-                --arg base "$(basename "$file")"\
-                --arg url "$url"`"
+                --arg base "$base"\
+                --arg url "$url"\
+                --arg md5 "$md5"\
+                --arg sha256 "$sha256"`"
             fileobjs=("${fileobjs[@]}" "$fileobj")
         done
     fi
