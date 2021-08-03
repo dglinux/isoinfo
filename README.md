@@ -1,15 +1,16 @@
 # Direct download info JSON
 
-```json
+```typescript
 DistroObject[]
 ```
 
 ## DistroObject
 
-```json
+```typescript
 {
     "name": string,
-    "files": DistroFileObject[]  // Sorted by version, newest first
+    "files": DistroFileObject[],  // Sorted by version, newest first
+    "latest": string  // Latest version
 }
 ```
 
@@ -17,7 +18,7 @@ DistroObject[]
 
 Checksums are obtained from files like sha256sums.txt, not by executing checksum programs on the files.
 
-```json
+```typescript
 {
     "ver": string,
     "base": string,  // Base file name that is displayed on the site

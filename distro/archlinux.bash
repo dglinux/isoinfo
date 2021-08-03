@@ -3,7 +3,6 @@ fsprefix=${TUNASYNC_WORKING_DIR%/archlinux}
 fileobjs=()
 
 listfiles() {
-    local latest="`readlink "$TUNASYNC_WORKING_DIR/iso/latest"`"
     local version
     for version in "$TUNASYNC_WORKING_DIR/iso/"*; do
         local ver="`basename "$version"`"
@@ -21,9 +20,6 @@ listfiles() {
                         --arg base "$base"\
                         --arg sha1 "$sha1"\
                         --arg md5 "$md5"`"
-                    if [[ "$latest" == "$ver" ]]; then
-                        fileobj="`jq -nc '$orig + {"tag":"latest"}' --argjson orig "$fileobj"`"
-                    fi
                     fileobjs=("${fileobjs[@]}" "$fileobj")
                 fi
             done
@@ -32,5 +28,5 @@ listfiles() {
 }
 
 listfiles
-#for i in "${fileobjs[@]}"; do echo $i; done
-jq -nc '[{"name":"Arch Linux",files:$ARGS.positional}]' --jsonargs "${fileobjs[@]}"
+latest="`readlink "$TUNASYNC_WORKING_DIR/iso/latest"`"
+jq -nc '[{"name":"Arch Linux","files":$ARGS.positional,"latest":$latest}]' --jsonargs "${fileobjs[@]}" --arg latest "$latest"
