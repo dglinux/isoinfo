@@ -11,10 +11,12 @@ for version in "$TUNASYNC_WORKING_DIR/"*; do
             ver="${ver#nixos-}"
             base="$(basename "$file")"
             url="${file#"$fsprefix"}"
-            fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url}'\
+            sha256="`cut -d' ' -f 1 "$version/$base.sha256"`"
+            fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"sha256":$sha256}'\
                 --arg ver "$ver"\
                 --arg base "$base"\
-                --arg url "$url"`"
+                --arg url "$url"\
+                --arg sha256 "$sha256"`"
             fileobjs=("${fileobjs[@]}" "$fileobj")
         done
     fi
