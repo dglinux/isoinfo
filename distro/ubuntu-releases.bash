@@ -3,22 +3,23 @@ fsprefix=${TUNASYNC_WORKING_DIR%/ubuntu-releases}
 
 shopt -s extglob
 
-get_version() {
-    local IFS="-" splitted=()
-    read -ra splitted <<< "$1"
-    echo "${splitted[1]}"
-}
-
 fileobjs=()
-for file in "$TUNASYNC_WORKING_DIR/.pool/"*.iso; do
-    base="$(basename "$file")"
-    version="`get_version "$base"`"
-    url="${file#"$fsprefix"}"
-    fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url}'\
-        --arg ver "$version"\
-        --arg base "$base"\
-        --arg url "$url"`"
-    fileobjs=("${fileobjs[@]}" "$fileobj")
+readarray -t codenames < <(readlink "$TUNASYNC_WORKING_DIR/"*.* | uniq | tac)
+for code in "${codenames[@]}"; do
+    version="$TUNASYNC_WORKING_DIR/$code"
+    if [[ -d "$version" ]]; then
+        for file in "$version/"*.iso; do
+            url="${file#"$fsprefix"}"
+            base="$(basename "$file")"
+            sha256="`grep '*'"$base"'$' "$version/SHA256SUMS" | cut -d' ' -f 1`"
+            fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"sha256":$sha256}'\
+                --arg ver "$code"\
+                --arg base "$base"\
+                --arg url "$url"\
+                --arg sha256 "$sha256"`"
+            fileobjs=("${fileobjs[@]}" "$fileobj")
+        done
+    fi
 done
 
-jq -nc '[{"name":"Ubuntu",files:$ARGS.positional}]' --jsonargs "${fileobjs[@]}"
+jq -nc '[{"name":"Ubuntu","files":$ARGS.positional}]' --jsonargs "${fileobjs[@]}"
