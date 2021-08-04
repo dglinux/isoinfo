@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 LIVE_ARCHS=(amd64 i386)
-ARCHS=(amd64 i386 armhf arm64 armhf mips mipsel mips64el s390x)
+ARCHS=(amd64 i386 arm64 armhf mips mipsel mips64el s390x)
 fsprefix=${TUNASYNC_WORKING_DIR%/debian-cd}
 
 shopt -s extglob
