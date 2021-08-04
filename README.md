@@ -2,7 +2,7 @@
 
 A set of scripts to generate /static/isoinfo.json.
 
-## Dependecies
+## Dependencies
 
 * coreutils (from GNU, not BusyBox)
 * bash (v4.0+)
