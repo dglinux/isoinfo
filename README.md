@@ -6,6 +6,7 @@ A set of scripts to generate /static/isoinfo.json.
 
 * coreutils (from GNU, not BusyBox)
 * bash (v4.0+)
+* jq (v1.5+)
 
 ## JSON schema
 
