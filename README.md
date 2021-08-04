@@ -1,10 +1,19 @@
-# Direct download info JSON
+# isoinfo
+
+A set of scripts to generate /static/isoinfo.json.
+
+## Dependecies
+
+* coreutils (from GNU, not BusyBox)
+* bash (v4.0+)
+
+## JSON schema
 
 ```typescript
 DistroObject[]
 ```
 
-## DistroObject
+### DistroObject
 
 ```typescript
 {
@@ -14,7 +23,7 @@ DistroObject[]
 }
 ```
 
-### DistroFileObject
+#### DistroFileObject
 
 Checksums are obtained from files like sha256sums.txt, not by executing checksum programs on the files.
 
