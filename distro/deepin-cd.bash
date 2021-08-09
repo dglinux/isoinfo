@@ -9,7 +9,7 @@ for version in "$TUNASYNC_WORKING_DIR/"*; do
         for file in "$version/"*.iso; do
             url="${file#"$fsprefix"}"
             base="$(basename "$file")"
-            size="`du -h "$file"`"
+            size="`du -h "$file" | cut -f 1`"
             md5="`grep '\s'"$base"'$' "$version/MD5SUMS" | cut -d' ' -f 1`"
             sha256="`grep '\s'"$base"'$' "$version/SHA256SUMS" | cut -d' ' -f 1`"
             fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"size":$size,"md5":$md5,"sha256":$sha256}'\

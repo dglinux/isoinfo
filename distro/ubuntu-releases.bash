@@ -11,7 +11,7 @@ for code in "${codenames[@]}"; do
         for file in "$version/"*.iso; do
             url="${file#"$fsprefix"}"
             base="$(basename "$file")"
-            size="`du -h "$file"`"
+            size="`du -h "$file" | cut -f 1`"
             sha256="`grep '*'"$base"'$' "$version/SHA256SUMS" | cut -d' ' -f 1`"
             fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"size":$size,"sha256":$sha256}'\
                 --arg ver "$code"\

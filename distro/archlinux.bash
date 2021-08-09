@@ -11,7 +11,7 @@ listfiles() {
                 if [[ -f "$iso" ]]; then
                     local url=${iso#"$fsprefix"}
                     local base="`basename "$iso"`"
-                    local size="`du -h "$iso"`"
+                    local size="`du -h "$iso" | cut -f 1`"
                     local sha1="`grep '\s'"$base"'$' "$version/sha1sums.txt" | cut -d' ' -f 1`"
                     local md5="`grep '\s'"$base"'$' "$version/md5sums.txt" | cut -d' ' -f 1`"
                     local fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"size":$size,"sha1":$sha1,"md5":$md5}'\

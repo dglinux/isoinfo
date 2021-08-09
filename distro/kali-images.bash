@@ -12,7 +12,7 @@ for version in "$TUNASYNC_WORKING_DIR/"kali-*; do
             ver="${ver#kali-}"
             url="${file#"$fsprefix"}"
             base="$(basename "$file")"
-            size="`du -h "$file"`"
+            size="`du -h "$file" | cut -f 1`"
             sha1="`grep '\s'"$base"'$' "$version/SHA1SUMS" | cut -d' ' -f 1`"
             sha256="`grep '\s'"$base"'$' "$version/SHA256SUMS" | cut -d' ' -f 1`"
             fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"size":$size,"sha1":$sha1,"sha256":$sha256}'\

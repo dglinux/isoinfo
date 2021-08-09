@@ -11,7 +11,7 @@ get_fileobj() {
     local ver="$(basename "$version")"
     local dir="$(dirname "$file")"
     local base="$(basename "$file")"
-    local size="`du -h "$file"`"
+    local size="`du -h "$file" | cut -f 1`"
     local md5="`grep '\s'"$base"'$' "$dir/MD5SUMS" | cut -d' ' -f 1`"
     local sha1="`grep '\s'"$base"'$' "$dir/SHA1SUMS" | cut -d' ' -f 1`"
     local sha256="`grep '\s'"$base"'$' "$dir/SHA256SUMS" | cut -d' ' -f 1`"
