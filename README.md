@@ -33,6 +33,7 @@ Checksums are obtained from files like sha256sums.txt, not by executing checksum
     "ver": string,
     "base": string,  // Base file name that is displayed on the site
     "url": string,
+    "size": string,  // Human-readable size
     "sha256"?: string,
     "sha1"?: string,
     "md5"?: string,

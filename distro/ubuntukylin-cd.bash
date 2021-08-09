@@ -8,9 +8,11 @@ for version in "$TUNASYNC_WORKING_DIR/"*.*; do
     if [[ -d "$version" ]]; then
         for file in "$version/"*.iso; do
             url="${file#"$fsprefix"}"
-            fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url}'\
+            size="`du -h "$file"`"
+            fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"size":$size}'\
                 --arg ver "$(basename "$version")"\
                 --arg base "$(basename "$file")"\
+                --arg size "$size"\
                 --arg url "$url"`"
             fileobjs=("${fileobjs[@]}" "$fileobj")
         done

@@ -12,9 +12,11 @@ for file in "${isos[@]}"; do
     if [[ ! -L "$TUNASYNC_WORKING_DIR/$version" ]]; then
         arch="`cut -d'/' -f 5 <<< "$url"`"
         base="`basename "$file"`"
-        fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url}'\
+        size="`du -h "$file"`"
+        fileobj="`jq -nc '{"ver":$ver,"base":$base,"url":$url,"size":$size}'\
             --arg ver "$version-$arch"\
             --arg base "$base"\
+            --arg size "$size"\
             --arg url "$url"`"
         fileobjs=("${fileobjs[@]}" "$fileobj")
     fi
