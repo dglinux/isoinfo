@@ -14,7 +14,7 @@ get_fileobj() {
     local size="`du -h "$file" | cut -f 1`"
     local sha256="`grep '\s'"$base"'$' "$dir/SHA256SUMS" | cut -d' ' -f 1`"
     local sha512="`grep '\s'"$base"'$' "$dir/SHA512SUMS" | cut -d' ' -f 1`"
-    jq -nc '{"ver":$ver,"base":$base,"url":$url,"size":$size,"md5":$md5,"sha1":$sha1,"sha256":$sha256,"sha512":$sha512}'\
+    jq -nc '{"ver":$ver,"base":$base,"url":$url,"size":$size,"sha256":$sha256,"sha512":$sha512}'\
         --arg ver "$ver-$arch"\
         --arg base "$base"\
         --arg url "${url}"\
